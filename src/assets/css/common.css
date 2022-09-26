@@ -7,7 +7,6 @@ body{
   
   /* 全局search-icon的颜色 */
   --van-search-left-icon-color: var(--primary-color) !important;
-
 }
 
 /* 隐藏tab-bar */
