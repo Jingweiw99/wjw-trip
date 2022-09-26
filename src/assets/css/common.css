@@ -6,3 +6,11 @@ body{
   --primary-color: #ff9854
 }
 
+/* 隐藏tab-bar */
+.top-page {
+  position: relative;
+  z-index: 999;
+  height: 100vh;
+  background-color: #fff;
+  overflow-y: auto;
+}

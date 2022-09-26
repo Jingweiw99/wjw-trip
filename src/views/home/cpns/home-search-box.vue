@@ -8,9 +8,13 @@
       </div>
     </div>
   </div>
-</template>
+</template> 
 
 <script setup>
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
+
 const positionClick = () => {
   navigator.geolocation.getCurrentPosition(res => {
     console.log("获取位置成功！", res)
@@ -24,7 +28,7 @@ const positionClick = () => {
 }
 
 const cityClick = () => {
-  console.log("hello")
+  router.push("./city")
 }
 
 </script>
