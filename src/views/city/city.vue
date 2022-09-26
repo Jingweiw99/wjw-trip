@@ -19,6 +19,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { getCityAll } from '@/services'
 
 const router = useRouter()
 
@@ -32,10 +33,13 @@ const onSearch = (val) => {
 const onCancel = () => {
   router.back()
 };
-
+// 获取城市的所有数据
+getCityAll().then(res => {
+  console.log(res.data)
+})
 
 </script>
 
 <style lang="less" scoped>
-.city {}
+
 </style>
