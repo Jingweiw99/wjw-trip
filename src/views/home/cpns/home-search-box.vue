@@ -15,7 +15,7 @@
           <span class="tip">入住</span>
           <span class="time">{{startDate}}</span>
         </div>
-        <div class="stay">共1晚</div>
+        <div class="stay">共{{stayCount}}晚</div>
       </div>
 
       <div class="end">
@@ -34,7 +34,7 @@ import useCityStore from '@/stores/modules/city';
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue'
-import { formatMonthDay } from '@/utils/format_date'
+import { formatMonthDay, getDiffDays } from '@/utils/format_date'
 
 const router = useRouter()
 
@@ -59,8 +59,9 @@ const cityClick = () => {
 // 日期范围
 const nowDate = new Date()
 const startDate = ref(formatMonthDay(nowDate))
-const newDate = nowDate.setDate(nowDate.getDate() + 1)
+const newDate = new Date().setDate(nowDate.getDate() + 1)
 const endDate = ref(formatMonthDay(newDate))
+const stayCount = ref(getDiffDays(nowDate, newDate))
 // 日历
 const show = ref(false)
 const onConfirm = (value) => {
@@ -68,6 +69,7 @@ const onConfirm = (value) => {
   const selectEndDate = value[1]
   startDate.value = formatMonthDay(selectStartDate)
   endDate.value = formatMonthDay(selectEndDate)
+  stayCount.value = getDiffDays(selectStartDate, selectEndDate)
   show.value = false
 }
 </script>
