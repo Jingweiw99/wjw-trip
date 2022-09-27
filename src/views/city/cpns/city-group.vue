@@ -4,7 +4,7 @@
       <van-index-anchor index="热门" />
       <div class="list">
         <template v-for="city in groupData.hotCities">
-          <div class="city">
+          <div class="city" @click="cityClick(city)">
             {{city.cityName}}
           </div>
         </template>
@@ -13,7 +13,7 @@
       <template v-for="(group, index) in groupData?.cities" :key="index">
         <van-index-anchor :index="group.group" />
         <template v-for="(city, indey) in group.cities" :key="indey">
-          <van-cell :title="city.cityName" />
+          <van-cell :title="city.cityName" @click="cityClick(city)" />
         </template>
       </template>
     </van-index-bar>
@@ -22,18 +22,28 @@
 
 <script setup>
 import { computed } from '@vue/reactivity';
-
+import { useRouter } from 'vue-router'
+import  useCityStore  from '@/stores/modules/city'
+// 定义props
 const props = defineProps({
   groupData: {
     type: Object,
     default: () => ({})
   }
 })
+// 动态的索引
 const indexList = computed(() => {
   const list = props.groupData.cities.map(item => item.group)
   list.unshift("#")
   return list
 })
+// 监听城市的点击
+const router = useRouter()
+const cityStore = useCityStore()
+const cityClick = (city) => {
+  cityStore.currentCity = city
+  router.back()
+}
 </script>
 
 <style lang="less" scoped>
