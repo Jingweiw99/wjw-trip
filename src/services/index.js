@@ -1,1 +1,1 @@
-export * from "./module/city"
+export * from "./modules/city"
