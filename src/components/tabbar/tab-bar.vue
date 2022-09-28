@@ -48,6 +48,7 @@ const itemClick = (index, item) => {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #ffffff;
     
     &.active{
       color: var(--primary-color)
