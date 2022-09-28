@@ -25,7 +25,20 @@
         </div>
       </div>
     </div>
-    <van-calendar v-model:show="show" type="range" color="#ff9854" :round="false" @confirm="onConfirm" />
+    <van-calendar
+      v-model:show="show"
+      type="range"
+      color="#ff9854"
+      :round="false"
+      @confirm="onConfirm"
+    />
+    <!-- 价格/人数选择 -->
+    <div class="section price-counter bottom-gray-line">
+      <div class="start">价格不限</div>
+      <div class="end">人数不限</div>
+    </div>
+    <!-- 关键字 -->
+    <div class="section keyword bottom-gray-line">关键字/位置/民宿名</div>
   </div>
 </template> 
   
@@ -157,6 +170,12 @@ const onConfirm = (value) => {
     text-align: center;
     font-size: 12px;
     color: #666;
+  }
+}
+
+.price-counter {
+  .start {
+    border-right: 1px solid  var(--line-color);
   }
 }
 </style>
