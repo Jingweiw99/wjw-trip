@@ -1,7 +1,7 @@
 import request from '../request'
 
 export function  getHomeHotSuggests() {
-  return  request.get({
+  return request.get({
     url: "/home/hotSuggests"
   })
 }

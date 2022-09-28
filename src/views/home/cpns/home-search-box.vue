@@ -50,6 +50,10 @@
         </div>
       </template>
     </div>
+    <!-- 搜索按钮 -->
+    <div class="section search-btn">
+      <div class="btn" @click="searchBtnClick">开始搜索</div>
+    </div>
   </div>
 </template> 
   
@@ -78,7 +82,6 @@ const positionClick = () => {
 // 当前城市
 const cityStore = useCityStore()
 const { currentCity } = storeToRefs(cityStore)
-
 const cityClick = () => {
   router.push("./city")
 }
@@ -101,7 +104,18 @@ const onConfirm = (value) => {
 
 // 热门建议
 const homeStore = useHomeStore()
-const { hotSuggests } =storeToRefs(homeStore)
+const { hotSuggests } = storeToRefs(homeStore)
+// 按钮搜索
+const searchBtnClick = () => {
+  router.push({
+    path: "/search",
+    query: {
+      startDate: startDate.value,
+      endDate: endDate.value,
+      currentCity: currentCity.value.cityName,
+    }
+  })
+}
 </script>
 
 <style lang="less" scoped>
@@ -209,4 +223,18 @@ const { hotSuggests } =storeToRefs(homeStore)
   }
 }
 
+.search-btn {
+  .btn {
+    width: 342px;
+    height: 38px;
+    max-height: 50px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 38px;
+    text-align: center;
+    border-radius: 20px;
+    color: #fff;
+    background-image: var(--theme-linear-gradient);
+  }
+}
 </style>
