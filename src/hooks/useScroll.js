@@ -1,4 +1,5 @@
 import { onMounted, onUnmounted, ref } from "vue"
+import { throttle } from "underscore"
 
 export default function useScroll() {
   const isReachBottom = ref(false)
@@ -7,7 +8,7 @@ export default function useScroll() {
   const scrollHeight = ref(0)
 
   // 监听window窗口的滚动
-  const scrollListenerHandler = function () {
+  const scrollListenerHandler = throttle(function () {
     clientHeight.value = document.documentElement.clientHeight
     scrollTop.value = document.documentElement.scrollTop
     scrollHeight.value = document.documentElement.scrollHeight
@@ -15,7 +16,7 @@ export default function useScroll() {
       // console.log("滚动到底部了")
       isReachBottom.value = true
     }
-  }
+  }, 100)
   onMounted(() => {
     window.addEventListener("scroll", scrollListenerHandler)
   })

@@ -18,7 +18,7 @@ import useHomeStore from '@/stores/modules/home';
 import HomeCategories from "./cpns/home-categories.vue";
 import HomeContent from "./cpns/home-content.vue";
 import useScroll from "@/hooks/useScroll"
-import { watch,ref,computed } from "vue";
+import { watch, computed } from "vue";
 
 const homeStore = useHomeStore()
 homeStore.fetchHotSuggestData()
@@ -46,9 +46,9 @@ watch(isReachBottom,(newVal) => {
   if(newVal) homeStore.fetchHouselistData()
   isReachBottom.value = false
 })
-//搜索框显示控制
+//搜索框显示控制（计算有缓存）
 // const isShowSearchBar = ref(false)
-// watch(isShowSearchBar, (newTop) => {
+// watch(scrollTop, (newTop) => {
 //   isShowSearchBar.value = newTop > 360
 // })
 const isShowSearchBar = computed(() => {
@@ -65,4 +65,3 @@ const isShowSearchBar = computed(() => {
   }
 }
 </style>
-
