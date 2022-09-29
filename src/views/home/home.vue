@@ -22,6 +22,15 @@ homeStore.fetchHotSuggestData()
 homeStore.fetchCategorysData()
 homeStore.fetchHouselistData()
 
+// 监听window窗口的滚动
+window.addEventListener("scroll", function () {
+  const clientHeight = document.documentElement.clientHeight
+  const scrollTop = document.documentElement.scrollTop
+  const scrollHeight = document.documentElement.scrollHeight
+  if (clientHeight + scrollTop >= scrollHeight) {
+    homeStore.fetchHouselistData()
+  }
+})
 </script>
 
 <style lang="less" scoped>
