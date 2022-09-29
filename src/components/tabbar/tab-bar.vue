@@ -4,7 +4,7 @@
     <div
       class="tab-bar-item"
       :class="{active:currentIndex === index}"
-      @click = "itemClick(index, item)"
+      @click = "itemClick(item)"
     >
       <img
       v-if="currentIndex !== index"
@@ -20,15 +20,23 @@
 <script setup>
 import tabberData from "@/assets/data/tabbar"
 import { getAssetURL } from "@/utils/load_assets"
-import { ref } from "vue"
-import { useRouter } from "vue-router"
+import { ref, watch } from "vue"
+import { useRouter, useRoute } from "vue-router"
 
 const currentIndex = ref(0)
 const router =  useRouter()
-const itemClick = (index, item) => {
-  currentIndex.value = index
+const route = useRoute()
+const itemClick = (item) => {
   router.push(item.path)
 }
+watch(route, (newRoute) => {
+  const index = tabberData.findIndex(item => item.path === newRoute.path)
+  if (index === -1) return
+  currentIndex.value = index
+})
+
+ 
+
 </script>
 
 <style lang="less" scoped>
