@@ -2,15 +2,22 @@
   <div class="content">
     <h2 class="title">热门精选</h2>
     <div class="list">
-      <template v-for="item in 100" >
-        {{item}}cuole 
+      <template v-for="item in houselist" :key="item.data.houseId">
+        <house-item-v9 v-if="item.discoveryContentType === 9" :item-data="item.data"></house-item-v9>
+        <house-item-v3 v-else :item-data="item.data" />
       </template>
     </div>
   </div>
 </template>
 
 <script setup>
+import useHomeStore from '@/stores/modules/home';
+import { storeToRefs } from 'pinia';
+import houseItemV9 from '@/components/house-item-v9/house-item-v9.vue';
+import houseItemV3 from '@/components/house-item-v3/house-item-v3.vue';
 
+const homeStore = useHomeStore()
+const { houselist } = storeToRefs(homeStore)
 </script>
 
 <style lang="less" scoped>
