@@ -13,7 +13,7 @@
       <div class="start">
         <div class="date">
           <span class="tip">入住</span>
-          <span class="time">{{startDate}}</span>
+          <span class="time">{{startDateStr}}</span>
         </div>
         <div class="stay">共{{stayCount}}晚</div>
       </div>
@@ -21,17 +21,11 @@
       <div class="end">
         <div class="date">
           <span class="tip">离店</span>
-          <span class="time">{{endDate}}</span>
+          <span class="time">{{endDateStr}}</span>
         </div>
       </div>
     </div>
-    <van-calendar
-      v-model:show="show"
-      type="range"
-      color="#ff9854"
-      :round="false"
-      @confirm="onConfirm"
-    />
+    <van-calendar v-model:show="show" type="range" color="#ff9854" :round="false" @confirm="onConfirm" />
     <!-- 价格/人数选择 -->
     <div class="section price-counter bottom-gray-line">
       <div class="start">价格不限</div>
@@ -42,10 +36,7 @@
     <!-- 热门建议 -->
     <div class="section hot-suggests">
       <template v-for="(item, index) in hotSuggests" :key="index">
-        <div 
-          class="item"
-          :style="{ color: item.tagText.color, background: item.tagText.background.color }"
-        >
+        <div class="item" :style="{ color: item.tagText.color, background: item.tagText.background.color }">
           {{ item.tagText.text }}
         </div>
       </template>
@@ -62,8 +53,9 @@ import useCityStore from '@/stores/modules/city';
 import useHomeStore from '@/stores/modules/home'
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { formatMonthDay, getDiffDays } from '@/utils/format_date'
+import useMainStore from '@/stores/modules/main';
 
 const router = useRouter()
 
@@ -86,18 +78,19 @@ const cityClick = () => {
   router.push("./city")
 }
 // 日期范围
-const nowDate = new Date()
-const startDate = ref(formatMonthDay(nowDate))
-const newDate = new Date().setDate(nowDate.getDate() + 1)
-const endDate = ref(formatMonthDay(newDate))
-const stayCount = ref(getDiffDays(nowDate, newDate))
+const mainStore = useMainStore()
+const { startDate, endDate } = storeToRefs(mainStore)
+
+const startDateStr = computed(() => formatMonthDay(startDate.value))
+const endDateStr = computed(() => formatMonthDay(endDate.value))
+const stayCount = ref(getDiffDays(startDate.value, endDate.value))
 // 日历
 const show = ref(false)
 const onConfirm = (value) => {
   const selectStartDate = value[0]
   const selectEndDate = value[1]
-  startDate.value = formatMonthDay(selectStartDate)
-  endDate.value = formatMonthDay(selectEndDate)
+  mainStore.startDate = selectStartDate
+  mainStore.endDate = selectEndDate
   stayCount.value = getDiffDays(selectStartDate, selectEndDate)
   show.value = false
 }
@@ -206,7 +199,7 @@ const searchBtnClick = () => {
 
 .price-counter {
   .start {
-    border-right: 1px solid  var(--line-color);
+    border-right: 1px solid var(--line-color);
   }
 }
 

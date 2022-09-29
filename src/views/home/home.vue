@@ -6,7 +6,9 @@
     </div>
     <home-search-box />
     <home-categories />
-    <div class="search-bar" v-if="isShowSearchBar">我是搜索框内容</div>
+    <div class="search-bar" v-if="isShowSearchBar">
+      <search-bar />
+    </div>
     <home-content />
   </div>
 </template>
@@ -17,6 +19,7 @@ import HomeSearchBox from "./cpns/home-search-box.vue"
 import useHomeStore from '@/stores/modules/home';
 import HomeCategories from "./cpns/home-categories.vue";
 import HomeContent from "./cpns/home-content.vue";
+import SearchBar from "@/components/search-bar/search-bar.vue";
 import useScroll from "@/hooks/useScroll"
 import { watch, computed } from "vue";
 
@@ -63,5 +66,16 @@ const isShowSearchBar = computed(() => {
   img {
     width: 100%;
   }
+}
+
+.search-bar {
+  position: fixed;
+  z-index: 999999;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45px;;
+  padding: 16px 16px 10px;
+  background-color: #fff;
 }
 </style>
