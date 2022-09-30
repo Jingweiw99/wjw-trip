@@ -2,6 +2,7 @@
   <div class="app">
     <router-view />
     <Tabbar />
+    <Loading />
   </div>
 
   
@@ -9,9 +10,7 @@
 
 <script setup>
 import Tabbar from './components/tabbar/tab-bar.vue'
-import { useRoute } from "vue-router";
-
-const route = useRoute()
+import Loading from './components/loading/loading.vue';
 </script>
   
 
